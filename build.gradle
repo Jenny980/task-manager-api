@@ -1,0 +1,66 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Core Reactivo
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// Seguridad para WebFlux (reactiva)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// Validación
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Devtools (solo en desarrollo)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	testImplementation 'org.mockito:mockito-core:5.12.0'
+
+}
+
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar {
+	enabled = true
+}
+
+jar {
+	enabled = false
+}
+
